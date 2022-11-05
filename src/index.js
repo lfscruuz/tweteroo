@@ -14,7 +14,7 @@ const usuarios = [
         username: "patrick",
         avatar: "https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters/large/800/Patrick-Star.SpongeBob-SquarePants.webp"
     }
-]
+];
 
 const tweets = [
     {
@@ -24,15 +24,24 @@ const tweets = [
     {
         username: "patrick",
       tweet: "va dao cu"
+    },
+    {
+        username: "lulamolusc0",
+      tweet: "va dao cu"
+    },
+    {
+        username: "sirigueijo",
+      tweet: "va dao cu"
     }
-]
+];
 
 app.get('/sign-up', (req, res) => {
     res.send(usuarios);
 })
+
 app.post('/sign-up', (req, res) => {
-    const {username, avatar} = req.body
-    console.log(req.body)
+    const {username, avatar} = req.body;
+    console.log(req.body);
     const novoUsuario = {
         username: username,
         avatar: avatar
@@ -41,10 +50,19 @@ app.post('/sign-up', (req, res) => {
     res.send('OK');
 })
 
-
 app.get('/tweets', (req, res) =>{
-    res.send(tweets);
-    console.log(tweets)
+    const novosTweets = []
+    for (let i = 0; i < tweets.length; i++){
+        const dadosUsuario = usuarios.find(e => e.username == tweets[i].username)
+        const mostrarTweet = (dadosUsuario === undefined ? '' : {
+            username: dadosUsuario.username,
+            avatar: dadosUsuario.avatar,
+            tweet: tweets[i].tweet
+        })
+        console.log(mostrarTweet)
+        dadosUsuario !== undefined ? novosTweets.push(mostrarTweet) : ''
+    }
+    res.send(novosTweets);
 })
 
 app.post('/tweets', (req, res) =>{
@@ -52,8 +70,8 @@ app.post('/tweets', (req, res) =>{
     const novoTweet = {
         username: username,
         tweet: tweet
-    }
-    tweets.push(novoTweet)
+    };
+    tweets.push(novoTweet);
     res.send('OK');
 })
 app.listen(5000);
