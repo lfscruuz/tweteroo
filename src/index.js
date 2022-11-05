@@ -16,17 +16,44 @@ const usuarios = [
     }
 ]
 
+const tweets = [
+    {
+        username: "bobesponja",
+      tweet: "eu amo o hub"
+    },
+    {
+        username: "patrick",
+      tweet: "va dao cu"
+    }
+]
+
 app.get('/sign-up', (req, res) => {
     res.send(usuarios);
 })
 app.post('/sign-up', (req, res) => {
+    const {username, avatar} = req.body
     console.log(req.body)
     const novoUsuario = {
-        username: req.body.username,
-        avatar: req.body.avatar
+        username: username,
+        avatar: avatar
     };
     usuarios.push(novoUsuario);
     res.send('OK');
 })
 
+
+app.get('/tweets', (req, res) =>{
+    res.send(tweets);
+    console.log(tweets)
+})
+
+app.post('/tweets', (req, res) =>{
+    const {username, tweet} = req.body;
+    const novoTweet = {
+        username: username,
+        tweet: tweet
+    }
+    tweets.push(novoTweet)
+    res.send('OK');
+})
 app.listen(5000);
