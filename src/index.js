@@ -91,10 +91,6 @@ const tweets = [
     },
 ];
 
-app.get('/sign-up', (req, res) => {
-    res.send(usuarios);
-})
-
 app.post('/sign-up', (req, res) => {
     const {username, avatar} = req.body;
     const novoUsuario = {
@@ -125,7 +121,7 @@ app.post('/tweets', (req, res) =>{
         username: username,
         tweet: tweet
     };
-    if (tweets.length = 10){
+    if (tweets.length === 10){
         tweets.pop(tweets[10])
     }
     tweets.unshift(novoTweet);
